@@ -566,14 +566,6 @@
              target="_blank" rel="noopener noreferrer">
             📍 Переглянути на Google Maps
           </a>
-
-          <iframe
-            src="https://maps.google.com/maps?q=вул.+Старобульварна,+2,+Кам'янець-Подільський&output=embed&z=16"
-            width="100%" height="200"
-            style="border:0; border-radius:8px; display:block; margin-top:4px;"
-            allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
         </div>
 
         <!-- RIGHT -->
@@ -612,7 +604,7 @@
             </p>
           </div>
           <img src="src/imports/photo_03.jpg"
-               style="width:100%; height:150px; object-fit:cover; border-radius:8px; display:block; flex-shrink:0;"
+               style="width:100%; border-radius:8px; display:block; object-fit:contain; background:#f1f5f9;"
                alt="Готель" onerror="this.style.opacity='.15'" />
         </div>
 
@@ -665,25 +657,31 @@
         </div>
 
         <!-- RIGHT — photo gallery -->
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start;">
-          <img src="src/imports/photo_02.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
-          <img src="src/imports/photo_04.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
-          <img src="src/imports/photo_08.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
-          <img src="src/imports/photo_09.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
-          <img src="src/imports/photo_05.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
-          <img src="src/imports/photo_07.jpg"
-               class="photo" style="height:145px;"
-               alt="" onerror="this.style.opacity='.15'" />
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <!-- 4 photos: 2×2 grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <img src="src/imports/photo_01.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_04.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_08.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_09.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+          </div>
+          <!-- 2 photos: side by side -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <img src="src/imports/photo_05.jpg"
+                 class="photo" style="height:120px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_07.jpg"
+                 class="photo" style="height:120px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+          </div>
         </div>
 
       </div>
