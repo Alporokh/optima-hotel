@@ -120,6 +120,7 @@
     .slide {
       width: 960px;
       max-width: 100%;
+      height: 580px;
       background: var(--white);
       border-radius: 14px;
       overflow: hidden;
@@ -163,9 +164,12 @@
     /* ── slide body ── */
     .slide-body {
       flex: 1;
+      min-height: 0;
       padding: 20px 36px 32px 48px;
       display: grid;
       gap: 32px;
+      align-items: stretch;
+      overflow: hidden;
     }
 
     .cols-2 { grid-template-columns: 1fr 1fr; }
@@ -546,7 +550,7 @@
       <div class="slide-body cols-2">
 
         <!-- LEFT -->
-        <div>
+        <div style="display:flex; flex-direction:column;">
           <img src="src/imports/image.png" alt="Optima Hotels" class="logo"
                onerror="this.style.display='none'" />
 
@@ -566,10 +570,14 @@
              target="_blank" rel="noopener noreferrer">
             📍 Переглянути на Google Maps
           </a>
+
+          <img src="src/imports/photo_03.jpg"
+               style="flex:1; min-height:0; width:100%; object-fit:cover; border-radius:8px; display:block;"
+               alt="Готель" onerror="this.style.opacity='.15'" />
         </div>
 
         <!-- RIGHT -->
-        <div style="display:flex; flex-direction:column; gap:12px;">
+        <div>
           <div class="card">
             <p class="section-label">Переваги готелю</p>
             <ul class="check-list">
@@ -603,9 +611,6 @@
               одного з найбільших центрів туризму Західної України.
             </p>
           </div>
-          <img src="src/imports/photo_03.jpg"
-               style="width:100%; border-radius:8px; display:block; object-fit:contain; background:#f1f5f9;"
-               alt="Готель" onerror="this.style.opacity='.15'" />
         </div>
 
       </div>
@@ -745,18 +750,13 @@
         </div>
 
         <!-- RIGHT -->
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <img src="src/imports/photo_01.jpg"
-               style="width:100%; height:160px; object-fit:cover; border-radius:8px; display:block; background:var(--slate-100);"
+        <div style="display:flex; flex-direction:column; gap:8px; min-height:0;">
+          <img src="src/imports/photo_02.jpg"
+               style="flex:1; min-height:0; width:100%; object-fit:cover; border-radius:8px; display:block;"
                alt="Готель" onerror="this.style.opacity='.15'" />
-          <div class="photos-2" style="margin-top:0;">
-            <img src="src/imports/photo_02.jpg"
-                 class="photo ph140" alt=""
-                 onerror="this.style.opacity='.15'" />
-            <img src="src/imports/photo_03.jpg"
-                 class="photo ph140" alt=""
-                 onerror="this.style.opacity='.15'" />
-          </div>
+          <img src="src/imports/photo_01.jpg"
+               style="width:100%; height:140px; object-fit:cover; border-radius:8px; display:block;"
+               alt="Готель" onerror="this.style.opacity='.15'" />
         </div>
 
       </div>
