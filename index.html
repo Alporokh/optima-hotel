@@ -472,35 +472,6 @@
     .btn-ig { background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); }
     .btn-fb { background: #1877f2; }
 
-    /* ──────────────────────────────────────
-       PRINT
-    ────────────────────────────────────── */
-    @media print {
-      @page { size: A4 landscape; margin: 0; }
-
-      body { background: #fff; }
-      .topbar { display: none !important; }
-
-      .slides {
-        padding: 0;
-        gap: 0;
-        display: block;
-      }
-
-      .slide {
-        width: 100%;
-        max-width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        min-height: 100vh;
-        page-break-after: always;
-        break-after: page;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      .slide:last-child { page-break-after: avoid; break-after: avoid; }
-    }
 
     /* ──────────────────────────────────────
        RESPONSIVE
@@ -524,7 +495,7 @@
         <div class="dot"        onclick="goTo(1)" title="Бізнес"></div>
         <div class="dot"        onclick="goTo(2)" title="Контакти"></div>
       </div>
-      <button class="btn-pdf" onclick="window.print()">
+      <button class="btn-pdf" id="btn-pdf" onclick="downloadPDF()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
@@ -769,6 +740,8 @@
 
   </div><!-- /slides -->
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     const slides = Array.from(document.querySelectorAll('.slide'));
     const dots   = Array.from(document.querySelectorAll('.dot'));
@@ -787,6 +760,42 @@
     }, { threshold: 0.4 });
 
     slides.forEach(s => io.observe(s));
+
+    async function downloadPDF() {
+      const btn = document.getElementById('btn-pdf');
+      btn.disabled = true;
+      btn.innerHTML = 'Генерація…';
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const W = 960, H = 580;
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], hotfixes: ['px_scaling'] });
+
+        for (let i = 0; i < slides.length; i++) {
+          if (i > 0) pdf.addPage([W, H], 'landscape');
+
+          const canvas = await html2canvas(slides[i], {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: '#ffffff',
+            width: W,
+            height: H,
+            ignoreElements: el => el.tagName === 'IFRAME'
+          });
+
+          pdf.addImage(canvas.toDataURL('image/jpeg', 0.97), 'JPEG', 0, 0, W, H);
+        }
+
+        pdf.save('Optima-Hotel.pdf');
+      } catch (e) {
+        alert('Помилка генерації PDF. Спробуйте ще раз.');
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Зберегти PDF`;
+      }
+    }
   </script>
 </body>
 </html>
