@@ -567,24 +567,17 @@
             📍 Переглянути на Google Maps
           </a>
 
-          <div class="photos-2">
-            <img src="src/imports/photo_01.jpg"
-                 class="photo ph120" alt="Екстер'єр"
-                 onerror="this.style.opacity='.15'" />
-            <img src="src/imports/photo_02.jpg"
-                 class="photo ph120" alt="Вид"
-                 onerror="this.style.opacity='.15'" />
-            <img src="src/imports/photo_03.jpg"
-                 class="photo ph120" alt="Інтер'єр"
-                 onerror="this.style.opacity='.15'" />
-            <img src="src/imports/photo_04.jpg"
-                 class="photo ph120" alt="Номер"
-                 onerror="this.style.opacity='.15'" />
-          </div>
+          <iframe
+            src="https://maps.google.com/maps?q=вул.+Старобульварна,+2,+Кам'янець-Подільський&output=embed&z=16"
+            width="100%" height="200"
+            style="border:0; border-radius:8px; display:block; margin-top:4px;"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
 
         <!-- RIGHT -->
-        <div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
           <div class="card">
             <p class="section-label">Переваги готелю</p>
             <ul class="check-list">
@@ -618,6 +611,9 @@
               одного з найбільших центрів туризму Західної України.
             </p>
           </div>
+          <img src="src/imports/photo_03.jpg"
+               style="width:100%; height:150px; object-fit:cover; border-radius:8px; display:block; flex-shrink:0;"
+               alt="Готель" onerror="this.style.opacity='.15'" />
         </div>
 
       </div>
@@ -668,33 +664,26 @@
           </ul>
         </div>
 
-        <!-- RIGHT -->
-        <div>
-          <div class="card-blue">
-            <p class="section-label">Потенціал зростання</p>
-            <h2 class="section-title">Перспективи Розвитку</h2>
-
-            <p style="margin-bottom:16px;">
-              Можливість збільшити площу до <strong>7 000 кв. м.</strong> і номерний фонд
-              до <strong>100–120 номерів</strong>, добудувати повноцінний SPA-центр.
-            </p>
-
-            <img src="src/imports/photo_05.jpg"
-                 class="hero-photo" alt="Готель — вид"
-                 onerror="this.style.opacity='.1'" />
-
-            <div class="photos-3">
-              <img src="src/imports/photo_05.jpg"
-                   class="photo ph100" alt=""
-                   onerror="this.style.opacity='.15'" />
-              <img src="src/imports/photo_06.jpg"
-                   class="photo ph100" alt=""
-                   onerror="this.style.opacity='.15'" />
-              <img src="src/imports/photo_07.jpg"
-                   class="photo ph100" alt=""
-                   onerror="this.style.opacity='.15'" />
-            </div>
-          </div>
+        <!-- RIGHT — photo gallery -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start;">
+          <img src="src/imports/photo_02.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
+          <img src="src/imports/photo_04.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
+          <img src="src/imports/photo_08.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
+          <img src="src/imports/photo_09.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
+          <img src="src/imports/photo_05.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
+          <img src="src/imports/photo_07.jpg"
+               class="photo" style="height:145px;"
+               alt="" onerror="this.style.opacity='.15'" />
         </div>
 
       </div>
