@@ -4,636 +4,798 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Optima Hotel — Кам'янець-Подільський</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-
-    /* ══════════════════════════════════════
-       RESET & BASE
-    ══════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #2563eb;
+      --blue-dark:  #1d4ed8;
+      --blue-light: #eff6ff;
+      --blue-mid:   #bfdbfe;
+      --slate-900:  #0f172a;
+      --slate-700:  #334155;
+      --slate-500:  #64748b;
+      --slate-400:  #94a3b8;
+      --slate-200:  #e2e8f0;
+      --slate-100:  #f1f5f9;
+      --slate-50:   #f8fafc;
+      --white:      #ffffff;
+      --page-bg:    #eef2f7;
+    }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: #1e1e2e;
+      background: var(--page-bg);
+      color: var(--slate-700);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 32px 16px 48px;
     }
 
-    /* ══════════════════════════════════════
-       TOP BAR
-    ══════════════════════════════════════ */
-    .top-bar {
-      width: 960px;
-      max-width: 100%;
+    /* ──────────────────────────────────────
+       STICKY NAV BAR
+    ────────────────────────────────────── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      padding: 0 24px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
     }
-    .top-bar h1 {
-      font-size: 13px;
-      font-weight: 500;
-      color: #94a3b8;
-      letter-spacing: 1px;
+
+    .topbar-brand {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      color: var(--slate-500);
     }
-    .btn-print {
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--slate-300, #cbd5e1);
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .dot.active {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .btn-pdf {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #2563eb;
+      gap: 7px;
+      background: var(--blue);
       color: #fff;
       border: none;
-      padding: 9px 22px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 7px 18px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 500;
       cursor: pointer;
-      transition: background .2s;
+      transition: background 0.2s;
       font-family: inherit;
+      letter-spacing: 0.3px;
     }
-    .btn-print:hover { background: #1d4ed8; }
 
-    /* ══════════════════════════════════════
+    .btn-pdf:hover { background: var(--blue-dark); }
+
+    /* ──────────────────────────────────────
+       SLIDES WRAPPER
+    ────────────────────────────────────── */
+    .slides {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 56px;
+      gap: 28px;
+    }
+
+    /* ──────────────────────────────────────
        SLIDE CARD
-    ══════════════════════════════════════ */
+    ────────────────────────────────────── */
     .slide {
       width: 960px;
       max-width: 100%;
-      background: #ffffff;
-      border-radius: 12px;
+      height: 580px;
+      background: var(--white);
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 28px;
-      box-shadow: 0 8px 40px rgba(0,0,0,.45);
-      position: relative;
-      min-height: 540px;
+      box-shadow: 0 4px 24px rgba(15,23,42,.10), 0 1px 4px rgba(15,23,42,.06);
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
-    /* left accent stripe */
+    /* blue left stripe */
     .slide::before {
       content: '';
       position: absolute;
       top: 0; left: 0;
-      width: 5px;
+      width: 4px;
       height: 100%;
-      background: linear-gradient(180deg, #2563eb 0%, #818cf8 100%);
+      background: linear-gradient(180deg, var(--blue) 0%, #818cf8 100%);
     }
 
-    /* ══════════════════════════════════════
-       SLIDE HEADER
-    ══════════════════════════════════════ */
-    .slide-header {
-      padding: 28px 40px 0 48px;
+    /* ── slide header ── */
+    .slide-head {
+      padding: 24px 36px 0 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .slide-tag {
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #2563eb;
+      color: var(--blue);
     }
+
     .slide-num {
       font-size: 11px;
-      color: #94a3b8;
+      color: var(--slate-400);
+    }
+
+    /* ── slide body ── */
+    .slide-body {
+      flex: 1;
+      min-height: 0;
+      padding: 20px 36px 32px 48px;
+      display: grid;
+      gap: 32px;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .cols-2 { grid-template-columns: 1fr 1fr; }
+    .cols-1 { grid-template-columns: 1fr; }
+
+    /* ── slide footer ── */
+    .slide-foot {
+      padding: 10px 36px 12px 48px;
+      border-top: 1px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .foot-text {
+      font-size: 10px;
+      color: var(--slate-400);
+      letter-spacing: 0.5px;
+    }
+
+    /* ──────────────────────────────────────
+       TYPOGRAPHY
+    ────────────────────────────────────── */
+    .logo {
+      height: 38px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .slide-title {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--slate-900);
+      line-height: 1.18;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      font-size: 12px;
+      color: var(--slate-400);
+      margin-bottom: 20px;
       font-weight: 400;
     }
 
-    /* ══════════════════════════════════════
-       SLIDE BODY
-    ══════════════════════════════════════ */
-    .slide-body {
-      flex: 1;
-      padding: 20px 40px 36px 48px;
-      display: grid;
-      gap: 32px;
-    }
-    .slide-body.cols-2 { grid-template-columns: 1fr 1fr; }
-    .slide-body.cols-1 { grid-template-columns: 1fr; }
+    p { font-size: 13px; line-height: 1.72; color: var(--slate-700); }
+    li { font-size: 13px; line-height: 1.6; color: var(--slate-700); }
+    strong { font-weight: 600; color: var(--slate-900); }
 
-    /* ══════════════════════════════════════
-       TYPOGRAPHY
-    ══════════════════════════════════════ */
-    .logo-img {
-      height: 40px;
-      object-fit: contain;
-      display: block;
-      margin-bottom: 14px;
-    }
-    .slide-title {
-      font-size: 30px;
-      font-weight: 300;
-      color: #0f172a;
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-    .slide-subtitle {
-      font-size: 13px;
-      color: #94a3b8;
-      margin-bottom: 18px;
-    }
-    .section-title {
-      font-size: 18px;
-      font-weight: 300;
-      color: #0f172a;
-      margin-bottom: 14px;
-    }
     .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #94a3b8;
-      margin-bottom: 8px;
+      color: var(--slate-400);
+      margin-bottom: 10px;
     }
-    p, li {
-      font-size: 13px;
-      line-height: 1.7;
-      color: #475569;
-    }
-    strong { font-weight: 600; color: #0f172a; }
 
-    /* ══════════════════════════════════════
-       ADDRESS / MAP LINK
-    ══════════════════════════════════════ */
-    .address { font-size: 13px; color: #475569; line-height: 1.7; margin-bottom: 12px; }
+    /* ──────────────────────────────────────
+       ADDRESS & MAP LINK
+    ────────────────────────────────────── */
+    .address {
+      font-size: 13px;
+      color: var(--slate-700);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
     .map-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      color: #2563eb;
-      text-decoration: none;
       font-weight: 500;
-      transition: color .2s;
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+      margin-bottom: 22px;
     }
-    .map-link:hover { color: #1d4ed8; }
 
-    /* ══════════════════════════════════════
+    .map-link:hover { color: var(--blue-dark); }
+
+    /* ──────────────────────────────────────
        PHOTO GRIDS
-    ══════════════════════════════════════ */
+    ────────────────────────────────────── */
+    .hero-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      background: var(--slate-100);
+      margin-bottom: 8px;
+    }
+
     .photos-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
+
     .photos-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
+
     .photo {
       width: 100%;
       object-fit: cover;
       border-radius: 6px;
       display: block;
-      background: #e2e8f0;
+      background: var(--slate-100);
     }
-    .photo-h130 { height: 130px; }
-    .photo-h100 { height: 100px; }
-    .photo-h160 { height: 160px; }
-    .photo-wide { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; display: block; background: #e2e8f0; }
 
-    /* ══════════════════════════════════════
-       INFO CARD
-    ══════════════════════════════════════ */
+    .ph120 { height: 120px; }
+    .ph100 { height: 100px; }
+    .ph140 { height: 140px; }
+
+    /* ──────────────────────────────────────
+       CARDS
+    ────────────────────────────────────── */
     .card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
       border-radius: 10px;
-      padding: 24px;
+      padding: 22px;
     }
+
     .card-blue {
-      background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
-      border: 1px solid #bfdbfe;
+      background: linear-gradient(135deg, var(--blue-light) 0%, var(--white) 100%);
+      border: 1px solid var(--blue-mid);
       border-radius: 10px;
-      padding: 24px;
+      padding: 22px;
       height: 100%;
     }
+
     .highlight {
-      background: #eff6ff;
-      border-left: 3px solid #2563eb;
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
       border-radius: 6px;
       padding: 14px 18px;
       margin: 14px 0;
     }
+
     .highlight p { font-size: 13px; color: #1e3a5f; }
     .highlight p + p { margin-top: 4px; }
 
-    /* ══════════════════════════════════════
-       RATING BADGES
-    ══════════════════════════════════════ */
+    .section-title {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--slate-900);
+      margin-bottom: 12px;
+    }
+
+    /* ──────────────────────────────────────
+       RATINGS
+    ────────────────────────────────────── */
     .ratings {
       display: flex;
       gap: 10px;
-      margin-top: 12px;
+      margin-bottom: 18px;
     }
+
     .badge {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #fff;
-      border: 1px solid #e2e8f0;
+      background: var(--white);
+      border: 1px solid var(--slate-200);
       border-radius: 8px;
-      padding: 12px 8px;
+      padding: 14px 8px;
     }
+
     .badge-score {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 300;
-      color: #0f172a;
+      color: var(--slate-900);
       line-height: 1;
+      margin-bottom: 5px;
     }
+
     .badge-name {
       font-size: 9px;
-      color: #94a3b8;
-      margin-top: 4px;
+      color: var(--slate-400);
       text-align: center;
+      letter-spacing: 0.5px;
     }
 
-    /* ══════════════════════════════════════
-       DIVIDER
-    ══════════════════════════════════════ */
-    .divider { border: none; border-top: 1px solid #e2e8f0; margin: 16px 0; }
-
-    /* ══════════════════════════════════════
-       CHECK / BULLET LIST
-    ══════════════════════════════════════ */
+    /* ──────────────────────────────────────
+       LISTS
+    ────────────────────────────────────── */
     .check-list, .dot-list { list-style: none; }
+
     .check-list li, .dot-list li {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 9px;
+      margin-bottom: 9px;
       font-size: 13px;
-      color: #475569;
+      color: var(--slate-700);
       line-height: 1.55;
     }
+
     .check-list li::before {
       content: "✓";
-      color: #2563eb;
+      color: var(--blue);
       font-weight: 700;
+      font-size: 12px;
       flex-shrink: 0;
       margin-top: 1px;
     }
+
     .dot-list li::before {
       content: "•";
-      color: #2563eb;
+      color: var(--blue);
       font-weight: 700;
       flex-shrink: 0;
     }
 
-    /* ══════════════════════════════════════
-       MAP IMG
-    ══════════════════════════════════════ */
-    .map-img {
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 8px;
-      display: block;
-      background: #e2e8f0;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    /* ──────────────────────────────────────
+       DIVIDER
+    ────────────────────────────────────── */
+    .divider { border: none; border-top: 1px solid var(--slate-200); margin: 16px 0; }
+
+    /* ──────────────────────────────────────
+       CONTACTS
+    ────────────────────────────────────── */
+    .contact-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
     }
 
-    /* ══════════════════════════════════════
-       SLIDE 3 — CONTACTS
-    ══════════════════════════════════════ */
-    .contact-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 28px;
-    }
-    .contact-row { margin-bottom: 20px; }
+    .contact-row { margin-bottom: 18px; }
     .contact-row:last-child { margin-bottom: 0; }
+
     .contact-label {
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #94a3b8;
+      color: var(--slate-400);
       margin-bottom: 4px;
     }
+
     .contact-value {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 300;
-      color: #0f172a;
+      color: var(--slate-900);
       text-decoration: none;
       display: block;
-      transition: color .2s;
+      transition: color 0.2s;
     }
-    .contact-value:hover { color: #2563eb; }
+
+    .contact-value:hover { color: var(--blue); }
+
     .contact-email {
       font-size: 14px;
-      font-weight: 300;
-      color: #0f172a;
+      font-weight: 400;
+      color: var(--slate-900);
       text-decoration: none;
       display: block;
-      transition: color .2s;
+      transition: color 0.2s;
     }
-    .contact-email:hover { color: #2563eb; }
+
+    .contact-email:hover { color: var(--blue); }
 
     .social-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--slate-500);
       margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
+
     .social-btn {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 18px;
+      padding: 11px 16px;
       border-radius: 8px;
       text-decoration: none;
       font-size: 13px;
       font-weight: 500;
       color: #fff;
-      margin-bottom: 10px;
-      transition: opacity .2s;
-    }
-    .social-btn:hover { opacity: .88; }
-    .btn-ig { background: linear-gradient(135deg, #a855f7, #ec4899); }
-    .btn-fb { background: #1d4ed8; }
-    .social-icon { font-size: 16px; }
-
-    /* ══════════════════════════════════════
-       SLIDE FOOTER
-    ══════════════════════════════════════ */
-    .slide-footer {
-      padding: 12px 40px 14px 48px;
-      border-top: 1px solid #f1f5f9;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-left { font-size: 10px; color: #cbd5e1; }
-    .footer-right { font-size: 10px; color: #cbd5e1; }
-
-    /* ══════════════════════════════════════
-       PRINT STYLES
-    ══════════════════════════════════════ */
-    @media print {
-      @page { size: A4 landscape; margin: 0; }
-      body { background: #fff; padding: 0; }
-      .no-print { display: none !important; }
-      .slide {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        box-shadow: none;
-        min-height: 100vh;
-        height: 100vh;
-        page-break-after: always;
-        break-after: page;
-      }
-      .slide:last-child { page-break-after: avoid; break-after: avoid; }
+      margin-bottom: 9px;
+      transition: opacity 0.2s;
     }
 
-    /* ══════════════════════════════════════
+    .social-btn:hover { opacity: 0.87; }
+    .social-btn svg { flex-shrink: 0; }
+
+    .btn-ig { background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); }
+    .btn-fb { background: #1877f2; }
+
+
+    /* ──────────────────────────────────────
        RESPONSIVE
-    ══════════════════════════════════════ */
+    ────────────────────────────────────── */
     @media (max-width: 720px) {
-      .slide-body.cols-2 { grid-template-columns: 1fr; }
-      .slide-title { font-size: 22px; }
-      .top-bar { width: 100%; }
+      .cols-2 { grid-template-columns: 1fr; }
+      .slide-title { font-size: 24px; }
+      .slide-body { padding: 16px 20px 28px 28px; }
+      .slide-head { padding: 20px 20px 0 28px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── TOP BAR ──────────────────────────────── -->
-<div class="top-bar no-print">
-  <h1>Optima Hotel · Презентація</h1>
-  <button class="btn-print" onclick="window.print()">
-    🖨 Зберегти як PDF
-  </button>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 1 — Про готель
-══════════════════════════════════════════════ -->
-<div class="slide">
-
-  <div class="slide-header">
-    <span class="slide-tag">Презентація об'єкту · 2026</span>
-    <span class="slide-num">01 / 03</span>
+  <!-- ── TOPBAR ─────────────────────────────────── -->
+  <div class="topbar">
+    <span class="topbar-brand">Optima Hotel · Презентація</span>
+    <div class="topbar-right">
+      <div class="nav-dots">
+        <div class="dot active" onclick="goTo(0)" title="Про готель"></div>
+        <div class="dot"        onclick="goTo(1)" title="Бізнес"></div>
+        <div class="dot"        onclick="goTo(2)" title="Контакти"></div>
+      </div>
+      <button class="btn-pdf" id="btn-pdf" onclick="downloadPDF()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Зберегти PDF
+      </button>
+    </div>
   </div>
 
-  <div class="slide-body cols-2">
+  <div class="slides">
 
-    <!-- LEFT -->
-    <div>
-      <img src="src/imports/image.png" alt="Optima Hotels" class="logo-img"
-           onerror="this.style.display='none'" />
+    <!-- ════════════════════════════════
+         SLIDE 1 — Про готель
+    ════════════════════════════════ -->
+    <div class="slide" id="slide-0">
 
-      <h1 class="slide-title">
-        Готель в<br>м. Кам'янець-Подільський
-      </h1>
-      <p class="slide-subtitle">Україна, Хмельницька область</p>
-
-      <p class="address">
-        Готель засновано у <strong>2008</strong> році.<br>
-        В мережі <strong>Optima Hotels</strong> з літа 2012.<br>
-        Адреса: <strong>вул. Старобульварна, 2</strong>
-      </p>
-
-      <a class="map-link"
-         href="https://www.google.com/maps/search/вулиця+Старобульварна,+2+Кам'янець-Подільський"
-         target="_blank" rel="noopener noreferrer">
-        📍 Переглянути на Google Maps
-      </a>
-
-      <div class="photos-2">
-        <img src="src/imports/photo_2026-04-22_19-13-04.jpg" class="photo photo-h130" alt="Екстер'єр" onerror="this.style.opacity='.2'" />
-        <img src="src/imports/photo_2026-04-22_19-13-23.jpg" class="photo photo-h130" alt="Вид" onerror="this.style.opacity='.2'" />
-        <img src="src/imports/photo_2026-04-22_19-13-46.jpg" class="photo photo-h130" alt="Інтер'єр" onerror="this.style.opacity='.2'" />
-        <img src="src/imports/photo_2026-04-22_19-14-00.jpg" class="photo photo-h130" alt="Номер" onerror="this.style.opacity='.2'" />
+      <div class="slide-head">
+        <span class="slide-tag">Презентація об'єкту · 2026</span>
+        <span class="slide-num">01 / 03</span>
       </div>
-    </div>
 
-    <!-- RIGHT -->
-    <div>
-      <div class="card">
-        <p class="section-label">Переваги</p>
-        <ul class="check-list">
-          <li>Один з найкращих <strong>4★</strong> готелів Поділля і Центральної України</li>
-          <li>Унікальний готельний комплекс в <strong>центрі Старого міста</strong> поряд з центральною площею та Ратушею</li>
-        </ul>
+      <div class="slide-body cols-2">
 
-        <hr class="divider" />
+        <!-- LEFT -->
+        <div style="display:flex; flex-direction:column;">
+          <img src="src/imports/image.png" alt="Optima Hotels" class="logo"
+               onerror="this.style.display='none'" />
 
-        <p class="section-label">Рейтинги</p>
-        <div class="ratings">
-          <div class="badge">
-            <span class="badge-score">9,1</span>
-            <span class="badge-name">Booking.com</span>
+          <h1 class="slide-title">
+            Готель в<br>м. Кам'янець-Подільський
+          </h1>
+          <p class="slide-subtitle">Україна, Хмельницька область</p>
+
+          <p class="address">
+            Готель засновано у <strong>2008</strong> році.<br>
+            В мережі <strong>Optima Hotels</strong> з літа <strong>2012</strong>.<br>
+            Адреса: <strong>вул. Старобульварна, 2</strong>
+          </p>
+
+          <a class="map-link"
+             href="https://www.google.com/maps/search/вулиця+Старобульварна,+2+Кам'янець-Подільський"
+             target="_blank" rel="noopener noreferrer">
+            📍 Переглянути на Google Maps
+          </a>
+
+          <iframe
+            src="https://maps.google.com/maps?q=вул.+Старобульварна,+2,+Кам'янець-Подільський&output=embed&z=16"
+            style="flex:1; min-height:0; width:100%; border:0; border-radius:8px; display:block;"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <div class="card">
+            <p class="section-label">Переваги готелю</p>
+            <ul class="check-list">
+              <li>Один з найкращих 4★ готелів Поділля і Центральної України</li>
+              <li>Унікальний готельний комплекс в центрі Старого міста, поруч з центральною площею та Ратушею</li>
+              <li>Поруч з пам'ятками архітектури та культури XI–XIX сторіччя</li>
+            </ul>
+
+            <hr class="divider" />
+
+            <p class="section-label">Рейтинг готелю</p>
+            <div class="ratings">
+              <div class="badge">
+                <span class="badge-score">9,1</span>
+                <span class="badge-name">Booking.com</span>
+              </div>
+              <div class="badge">
+                <span class="badge-score">9,2</span>
+                <span class="badge-name">Agoda</span>
+              </div>
+              <div class="badge">
+                <span class="badge-score">4,5★</span>
+                <span class="badge-name">Google Maps</span>
+              </div>
+            </div>
+
+            <hr class="divider" />
+
+            <p style="font-size:12px; color:#64748b; line-height:1.7;">
+              Готель знаходиться поруч з фортецею та туристичними пам'ятками міста —
+              одного з найбільших центрів туризму Західної України.
+            </p>
           </div>
-          <div class="badge">
-            <span class="badge-score">9,2</span>
-            <span class="badge-name">Agoda</span>
+        </div>
+
+      </div>
+
+      <div class="slide-foot">
+        <span class="foot-text">Optima Hotels · Кам'янець-Подільський</span>
+        <span class="foot-text">Конфіденційно</span>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════
+         SLIDE 2 — Бізнес & Перспективи
+    ════════════════════════════════ -->
+    <div class="slide" id="slide-1">
+
+      <div class="slide-head">
+        <span class="slide-tag">Інвестиційна пропозиція</span>
+        <span class="slide-num">02 / 03</span>
+      </div>
+
+      <div class="slide-body cols-2">
+
+        <!-- LEFT -->
+        <div>
+          <h1 class="slide-title">Діючий<br>Готельний Бізнес</h1>
+
+          <p style="margin-bottom:14px; margin-top:6px;">
+            Пропонуються до продажу корпоративні права ТОВ (<strong>100%</strong>), яке
+            володіє всім майном готельного комплексу і монолітом, залитим під другу чергу.
+            ТОВ має довгострокове право оренди земельної ділянки НІАЗ «Кам'янець» —
+            з можливістю добудови.
+          </p>
+
+          <div class="highlight">
+            <p>Площа нерухомості &nbsp;<strong>2 474 кв. м.</strong></p>
+            <p>Площа земельної ділянки &nbsp;<strong>2 547 кв. м.</strong></p>
           </div>
-          <div class="badge">
-            <span class="badge-score">4,5★</span>
-            <span class="badge-name">Google Maps</span>
+
+          <p class="section-label" style="margin-top:16px;">Інфраструктура готелю</p>
+          <ul class="dot-list">
+            <li><strong>38 номерів</strong> шести категорій</li>
+            <li>Ресторан</li>
+            <li>Літній майданчик з видом на площу і Ратушу</li>
+            <li>Кав'ярня · SPA-центр</li>
+            <li>Підвальні приміщення <strong>XVI–XVIII ст.</strong></li>
+            <li>Винний погреб · Дитяча кімната · Паркінг</li>
+          </ul>
+        </div>
+
+        <!-- RIGHT — photo gallery -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <!-- 4 photos: 2×2 grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <img src="src/imports/photo_01.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_04.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_08.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_09.jpg"
+                 class="photo" style="height:130px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+          </div>
+          <!-- 2 photos: side by side -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <img src="src/imports/photo_05.jpg"
+                 class="photo" style="height:120px;"
+                 alt="" onerror="this.style.opacity='.15'" />
+            <img src="src/imports/photo_07.jpg"
+                 class="photo" style="height:120px;"
+                 alt="" onerror="this.style.opacity='.15'" />
           </div>
         </div>
 
-        <hr class="divider" />
-
-        </div>
-    </div>
-
-  </div>
-
-  <div class="slide-footer">
-    <span class="footer-left">Optima Hotels · Кам'янець-Подільський</span>
-    <span class="footer-right">Конфіденційно</span>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 2 — Бізнес & Перспективи
-══════════════════════════════════════════════ -->
-<div class="slide">
-
-  <div class="slide-header">
-    <span class="slide-tag">Інвестиційна пропозиція</span>
-    <span class="slide-num">02 / 03</span>
-  </div>
-
-  <div class="slide-body cols-2">
-
-    <!-- LEFT -->
-    <div>
-      <h1 class="slide-title">Діючий<br>Готельний Бізнес</h1>
-
-      <p style="margin-bottom:14px;">
-        Пропонуються до продажу корпоративні права ТОВ (<strong>100%</strong>), яке володіє всім
-        майном готельного комплексу і монолітом, залитим під другу чергу. ТОВ має довгострокове
-        право оренди земельної ділянки, що належить до НІАЗ «Кам'янець», з можливістю добудови другої черги готелю.
-      </p>
-
-      <div class="highlight">
-        <p>Площа нерухомості &nbsp;<strong>2 474 кв. м.</strong></p>
-        <p>Площа земельної ділянки &nbsp;<strong>2 547 кв. м.</strong></p>
       </div>
 
-      <p class="section-label" style="margin-top:14px;">Інфраструктура готелю</p>
-      <ul class="dot-list">
-        <li>В готелі є повністю обладнані 38 номерів шести категорій</li>
-        <li>Ресторан</li>
-        <li>Літній майданчик з видом на площу і Ратушу</li>
-        <li>Кав'ярня · SPA-центр</li>
-        <li>Підвальні приміщення <strong>XVI–XVIII ст.</strong></li>
-        <li>Винний погреб · Дитяча кімната · Паркінг</li>
-      </ul>
-    </div>
-
-    <!-- RIGHT -->
-    <div>
-      <div class="card-blue">
-        <p class="section-label">Потенціал зростання</p>
-        <h2 class="section-title">Перспективи Розвитку</h2>
-
-        <p style="margin-bottom:14px;">
-          Можливість збільшити площу до <strong>7 000 кв. м.</strong> і номерний фонд
-          до <strong>100–120 номерів</strong>, добудувати повноцінний SPA-центр.
-        </p>
-
-        <img src="src/imports/image-1.png" alt="Карта" class="map-img"
-             onerror="this.style.opacity='.15'" />
-
-        <div class="photos-3">
-          <img src="src/imports/photo_2026-04-22_19-14-08.jpg" class="photo photo-h100" alt="" onerror="this.style.opacity='.2'" />
-          <img src="src/imports/photo_2026-04-22_19-12-42.jpg" class="photo photo-h100" alt="" onerror="this.style.opacity='.2'" />
-          <img src="src/imports/photo_2026-04-22_17-22-01.jpg" class="photo photo-h100" alt="" onerror="this.style.opacity='.2'" />
-        </div>
+      <div class="slide-foot">
+        <span class="foot-text">Optima Hotels · Кам'янець-Подільський</span>
+        <span class="foot-text">Конфіденційно</span>
       </div>
     </div>
 
-  </div>
 
-  <div class="slide-footer">
-    <span class="footer-left">Optima Hotels · Кам'янець-Подільський</span>
-    <span class="footer-right">Конфіденційно</span>
-  </div>
-</div>
+    <!-- ════════════════════════════════
+         SLIDE 3 — Контакти
+    ════════════════════════════════ -->
+    <div class="slide" id="slide-2">
 
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 3 — Контакти
-══════════════════════════════════════════════ -->
-<div class="slide">
-
-  <div class="slide-header">
-    <span class="slide-tag">Зв'язок з нами</span>
-    <span class="slide-num">03 / 03</span>
-  </div>
-
-  <div class="slide-body cols-2">
-
-    <!-- LEFT -->
-    <div>
-      <h1 class="slide-title">Контакти</h1>
-
-      <div class="contact-card" style="margin-bottom:20px;">
-        <div class="contact-row">
-          <p class="contact-label">Телефон</p>
-          <a class="contact-value" href="tel:+380672235099">+380 67 223 5099</a>
-        </div>
-        <hr class="divider" />
-        <div class="contact-row">
-          <p class="contact-label">Email</p>
-          <a class="contact-email" href="mailto:sybirtsev@uaconsult.com.ua">sybirtsev@uaconsult.com.ua</a>
-        </div>
+      <div class="slide-head">
+        <span class="slide-tag">Зв'язок з нами</span>
+        <span class="slide-num">03 / 03</span>
       </div>
 
-      <p class="social-title">Готель у соціальних мережах</p>
-      <a class="social-btn btn-ig"
-         href="https://www.instagram.com/optima.collection.kp?igsh=MTJnYjEydHMwMWxudQ=="
-         target="_blank" rel="noopener noreferrer">
-        <span class="social-icon">📷</span>
-        Instagram — @optima.collection.kp
-      </a>
-      <a class="social-btn btn-fb"
-         href="https://www.facebook.com/share/1HMRdtEdCi/"
-         target="_blank" rel="noopener noreferrer">
-        <span class="social-icon">f</span>
-        Facebook
-      </a>
-    </div>
+      <div class="slide-body cols-2">
 
-    <!-- RIGHT -->
-    <div style="display:flex; flex-direction:column; gap:8px;">
-      <img src="src/imports/photo_2026-04-22_19-03-15.jpg" class="photo-wide" alt="Готель" onerror="this.style.opacity='.2'" />
-      <div class="photos-2" style="margin-top:0;">
-        <img src="src/imports/photo_2026-04-22_19-13-04.jpg" class="photo photo-h130" alt="" onerror="this.style.opacity='.2'" />
-        <img src="src/imports/photo_2026-04-22_19-14-00.jpg" class="photo photo-h130" alt="" onerror="this.style.opacity='.2'" />
+        <!-- LEFT -->
+        <div>
+          <h1 class="slide-title">Контакти</h1>
+
+          <div class="contact-card">
+            <div class="contact-row">
+              <p class="contact-label">Телефон</p>
+              <a class="contact-value" href="tel:+380672235099">+380 67 223 5099</a>
+            </div>
+            <hr class="divider" />
+            <div class="contact-row">
+              <p class="contact-label">Email</p>
+              <a class="contact-email" href="mailto:sybirtsev@uaconsult.com.ua">
+                sybirtsev@uaconsult.com.ua
+              </a>
+            </div>
+          </div>
+
+          <p class="social-title">Готель у соціальних мережах</p>
+
+          <a class="social-btn btn-ig"
+             href="https://www.instagram.com/optima.collection.kp?igsh=MTJnYjEydHMwMWxudQ=="
+             target="_blank" rel="noopener noreferrer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            Instagram — @optima.collection.kp
+          </a>
+
+          <a class="social-btn btn-fb"
+             href="https://www.facebook.com/share/1HMRdtEdCi/"
+             target="_blank" rel="noopener noreferrer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </a>
+        </div>
+
+        <!-- RIGHT -->
+        <div style="display:flex; flex-direction:column; min-height:0;">
+          <img src="src/imports/photo_03.jpg"
+               style="flex:1; min-height:0; width:100%; object-fit:cover; border-radius:8px; display:block;"
+               alt="Готель" onerror="this.style.opacity='.15'" />
+        </div>
+
+      </div>
+
+      <div class="slide-foot">
+        <span class="foot-text">вул. Старобульварна, 2 · Кам'янець-Подільський · Україна</span>
+        <span class="foot-text">Конфіденційно</span>
       </div>
     </div>
 
-  </div>
+  </div><!-- /slides -->
 
-  <div class="slide-footer">
-    <span class="footer-left">вул. Старобульварна, 2 · Кам'янець-Подільський · Україна</span>
-    <span class="footer-right">Конфіденційно</span>
-  </div>
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots   = Array.from(document.querySelectorAll('.dot'));
 
+    function goTo(i) {
+      slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const i = slides.indexOf(e.target);
+          dots.forEach((d, j) => d.classList.toggle('active', i === j));
+        }
+      });
+    }, { threshold: 0.4 });
+
+    slides.forEach(s => io.observe(s));
+
+    async function downloadPDF() {
+      const btn = document.getElementById('btn-pdf');
+      btn.disabled = true;
+      btn.innerHTML = 'Генерація…';
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const W = 960, H = 580;
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], hotfixes: ['px_scaling'] });
+
+        for (let i = 0; i < slides.length; i++) {
+          if (i > 0) pdf.addPage([W, H], 'landscape');
+
+          const canvas = await html2canvas(slides[i], {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: '#ffffff',
+            width: W,
+            height: H,
+            ignoreElements: el => el.tagName === 'IFRAME'
+          });
+
+          pdf.addImage(canvas.toDataURL('image/jpeg', 0.97), 'JPEG', 0, 0, W, H);
+        }
+
+        pdf.save('Optima-Hotel.pdf');
+      } catch (e) {
+        alert('Помилка генерації PDF. Спробуйте ще раз.');
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Зберегти PDF`;
+      }
+    }
+  </script>
 </body>
 </html>
