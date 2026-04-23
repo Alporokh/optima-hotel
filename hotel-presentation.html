@@ -194,10 +194,13 @@
        TYPOGRAPHY
     ────────────────────────────────────── */
     .logo {
-      height: 38px;
+      height: 36px;
+      width: auto;
+      max-width: 180px;
       object-fit: contain;
       display: block;
       margin-bottom: 16px;
+      flex-shrink: 0;
     }
 
     .slide-title {
@@ -523,7 +526,7 @@
         <!-- LEFT -->
         <div style="display:flex; flex-direction:column;">
           <img src="src/imports/image (2).png" alt="Optima Hotels" class="logo"
-               onerror="this.style.display='none'" />
+               height="36" onerror="this.style.display='none'" />
 
           <h1 class="slide-title">
             Готель в<br>м. Кам'янець-Подільський
